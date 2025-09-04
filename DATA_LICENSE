@@ -1,1 +1,7 @@
 Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+This license applies to non-code artifacts in:
+  • data/
+  • prompts/
+
+Code in src/ is licensed under MIT (see LICENSE).
