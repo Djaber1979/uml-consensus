@@ -6,6 +6,17 @@ This repository reconstructs the **inter-model consensus** pipeline over the upl
 - Expert merges: `data/expert_merges.csv` (from the paper's adjudication table; includes 6 within-class synonyms and 1 cross-class duplicate removal).  
 - Output artifacts are written into `outputs/`.
 
+## Originating artifacts (prompts & inputs)
+
+The upstream inputs used during the original LLM runs are included under `prompts/`:
+
+- `prompts/Prompt.txt` — the exact prompt text
+- `prompts/Methodless.txt` — method-free UML scaffold (PlantUML)
+- `prompts/UC.txt` — the 21 structured use cases
+
+These are provided for **provenance**. The deterministic pipeline in `src/` does **not** consume these files; it starts from
+`data/Annotation_and_Mapping_Combined.csv` and reproduces all tables and figures deterministically.
+
 ## Quick start
 
 ```bash
@@ -22,6 +33,8 @@ make merges      # apply merges -> catalog_after_merges.csv
 make uc          # deterministic UC selection
 make enriched    # detailed CSV with raw inventories
 make puml        # PlantUML source with bold red UC notes per method
+make bootstrap  # bootstrap Jaccard stability (2000 draws; 5 runs/model by default)
+
 ```
 
 ## Outputs
@@ -31,7 +44,12 @@ make puml        # PlantUML source with bold red UC notes per method
 - `outputs/catalog_after_merges.csv` — after applying expert merges  
 - `outputs/catalog_with_uc.csv` — catalog + deterministic UC selection  
 - `outputs/consensus_enriched_detailed.csv` — enriched detailed table with raw name inventories, action inventories, and UC vote distributions  
-- `outputs/consensus_catalog.puml` — PlantUML class diagram source; UC tags are rendered as **bold, red** notes attached to methods (no `UC=` prefix).
+- `outputs/consensus_catalog.puml` — PlantUML class diagram source; UC tags are rendered inline, immediately after each method name:
+  `+ methodName() {<b><color:red>UCxx</color></b>}` (no `UC=` prefix).
+- `outputs/bootstrap_jaccard.csv` — per-draw Jaccard overlaps for the k=5 catalog (default: 2000 draws; 5 runs/model).
+- `outputs/bootstrap_jaccard_summary.json` — summary statistics (k, draws, per_model, median_jaccard, IQR).
+- `outputs/meta.json` — run metadata (e.g., shortlist_size and k).
+
 
 > Note: The adjudication table here exactly encodes the expert decisions in the manuscript. Depending on exact naming variants in the annotation file (e.g., `cancelRequest` vs `cancelServiceRequest`), only a subset of merges may apply; the pipeline stays deterministic.
 
@@ -42,8 +60,10 @@ make puml        # PlantUML source with bold red UC notes per method
 - **UC selection (per pair)**:
   1. If any UC attains ≥k distinct-model support, choose among those by **higher model support**, then **higher instance count**, then **smaller UC number**.
   2. Otherwise, choose by **highest instance count**; tie by **higher model support**, then **smaller UC number**.
+ - **Actions are not used in any calculation.** Action phrases are **never** used for consensus or UC selection; they are listed only in the enriched CSV for reference.
+ 
 
-- **PlantUML export**: for each method we attach a note `note right of Class::method()` that shows `<b><color:red>UCxx</color></b>` and (optionally) the top action inventory. This adheres to standard UML rendering in PlantUML; tags are **bold and red**, and no `UC=` prefix is used.
+- **PlantUML export**: for each method we append `{<b><color:red>UCxx</color></b>}` **inline immediately after the method name**. Tags are bold/red, and no `UC=` prefix is used.
 
 ## Data & Code Licenses
 
