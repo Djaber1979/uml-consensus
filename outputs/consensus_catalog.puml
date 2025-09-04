@@ -1,0 +1,78 @@
+@startuml
+hide empty members
+skinparam classAttributeIconSize 0
+skinparam ClassFontName Monospaced
+skinparam NoteBorderColor #BBBBBB
+skinparam NoteBackgroundColor #FFFFEE
+class "CollectionPoint" as CollectionPoint {
+  + updateDetails() {<b><color:red>UC19</color></b>}
+  + updateOperatingHours() {<b><color:red>UC19</color></b>}
+  + validateOperatingHours() {<b><color:red>UC19</color></b>}
+}
+class "CollectionRequest" as CollectionRequest {
+  + scheduleCollection() {<b><color:red>UC08</color></b>}
+}
+class "NotificationService" as NotificationService {
+  + notifyRequestAccepted() {<b><color:red>UC08</color></b>}
+  + sendNotification() {<b><color:red>UC01</color></b>}
+  + sendPasswordResetEmail() {<b><color:red>UC03</color></b>}
+  + sendPasswordResetLink() {<b><color:red>UC03</color></b>}
+  + sendRegistrationConfirmation() {<b><color:red>UC01</color></b>}
+  + sendVerificationEmail() {<b><color:red>UC01</color></b>}
+}
+class "Product" as Product {
+  + createListing() {<b><color:red>UC05</color></b>}
+  + publishListing() {<b><color:red>UC05</color></b>}
+  + updateDetails() {<b><color:red>UC13</color></b>}
+}
+class "RoleManager" as RoleManager {
+  + assignRole() {<b><color:red>UC20</color></b>}
+  + validateRoleTransition() {<b><color:red>UC20</color></b>}
+}
+class "ServiceProvider" as ServiceProvider {
+  + acceptRequest() {<b><color:red>UC08</color></b>}
+  + checkAvailability() {<b><color:red>UC08</color></b>}
+  + updateProfile() {<b><color:red>UC18</color></b>}
+}
+class "ServiceRequest" as ServiceRequest {
+  + assignProvider() {<b><color:red>UC06</color></b>}
+  + cancel() {<b><color:red>UC12</color></b>}
+  + createRequest() {<b><color:red>UC06</color></b>}
+  + schedule() {<b><color:red>UC06</color></b>}
+  + submitRequest() {<b><color:red>UC06</color></b>}
+  + updateStatus() {<b><color:red>UC03</color></b>}
+}
+class "TransportRequest" as TransportRequest {
+  + scheduleTransport() {<b><color:red>UC09</color></b>}
+}
+class "UserAccount" as UserAccount {
+  + activateAccount() {<b><color:red>UC01</color></b>}
+  + createAccount() {<b><color:red>UC01</color></b>}
+  + deactivateAccount() {<b><color:red>UC15</color></b>}
+  + lockAccount() {<b><color:red>UC02</color></b>}
+  + login() {<b><color:red>UC02</color></b>}
+  + logout() {<b><color:red>UC16</color></b>}
+  + unlockAccount() {<b><color:red>UC02</color></b>}
+}
+class "UserCredentials" as UserCredentials {
+  + generatePasswordResetToken() {<b><color:red>UC03</color></b>}
+  + resetPassword() {<b><color:red>UC03</color></b>}
+  + updatePassword() {<b><color:red>UC03</color></b>}
+  + validateCredentials() {<b><color:red>UC02</color></b>}
+  + validatePassword() {<b><color:red>UC02</color></b>}
+  + validatePasswordStrength() {<b><color:red>UC01</color></b>}
+}
+class "UserProfile" as UserProfile {
+  + updateProfileDetails() {<b><color:red>UC04</color></b>}
+  + validateEmailFormat() {<b><color:red>UC01</color></b>}
+  + validateProfileData() {<b><color:red>UC04</color></b>}
+  + verifyEmail() {<b><color:red>UC01</color></b>}
+}
+class "WasteJourney" as WasteJourney {
+  + addStage() {<b><color:red>UC10</color></b>}
+  + getCurrentStatus() {<b><color:red>UC10</color></b>}
+  + updateLocation() {<b><color:red>UC10</color></b>}
+  + updateStage() {<b><color:red>UC10</color></b>}
+  + updateStatus() {<b><color:red>UC10</color></b>}
+}
+@enduml
