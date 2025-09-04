@@ -1,0 +1,8 @@
+type,class,keep,remove
+within-class,UserProfile,updateProfileDetails,updateProfile
+within-class,ServiceRequest,cancel,cancelRequest
+within-class,Product,updateDetails,updateListing
+within-class,UserAccount,deactivateAccount,deactivate
+within-class,Product,publishListing,publish
+within-class,ServiceRequest,schedule,scheduleRequest
+cross-class-duplicate,UserAccount,,verifyEmail
